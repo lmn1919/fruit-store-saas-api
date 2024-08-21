@@ -34,6 +34,8 @@ yarn-error.log*
 # compiled output
 /dist
 /node_modules
+/.env.production
+/.env.development
 
 # Logs
 logs
@@ -75,3 +77,4 @@ __data
 
 public/upload
 types/env.d.ts
+

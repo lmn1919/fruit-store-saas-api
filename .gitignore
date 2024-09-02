@@ -10,8 +10,8 @@ dist
 .local
 
 # local env files
-#.env.development
-#.env.production
+.env.development
+.env.production
 .env.local
 
 .eslintcache
@@ -34,8 +34,8 @@ yarn-error.log*
 # compiled output
 /dist
 /node_modules
-.env.production
-.env.development
+# .env.production
+# .env.development
 
 # Logs
 logs

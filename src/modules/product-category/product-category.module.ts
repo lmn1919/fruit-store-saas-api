@@ -1,11 +1,11 @@
-// src/appointment-order/appointment-order.module.ts
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductCategoryController } from './product-category.controller';
-import { ProductCategoryEntity } from './product-category.entity';
 import { ProductCategoryService } from './product-category.service';
+import { ProductCategoryController } from './product-category.controller';
+import { ProductCategory } from './entities/product-category.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 @Module({
-  imports: [TypeOrmModule.forFeature([ProductCategoryEntity])],
+  imports: [TypeOrmModule.forFeature([ProductCategory])],
   controllers: [ProductCategoryController],
   providers: [ProductCategoryService],
 })

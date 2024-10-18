@@ -1,50 +1,66 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateProductCategoryDto } from './dto/create-product-category.dto';
-import { ProductCategoryEntity } from './product-category.entity';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Request
+} from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { BasePageDto } from '~/common/BasePageDto';
+import { CommonResult } from '~/common/CommonResult';
 import { ProductCategoryService } from './product-category.service';
 
 @ApiTags('产品分类')
-@Controller('product-categories')
+@Controller('productCategory')
 export class ProductCategoryController {
-  constructor(private readonly productCategoryService: ProductCategoryService) {}
+  constructor(
+    private readonly productCategoryService: ProductCategoryService,
+  ) {}
 
-  @Post()
-  @ApiOperation({ summary: '创建产品分类' })
-  @ApiResponse({ status: 201, description: '分类创建成功。', type: ProductCategoryEntity })
-  @ApiResponse({ status: 400, description: '无效的输入。' })
-  create(@Body() createProductCategoryDto: CreateProductCategoryDto) {
-    return this.productCategoryService.create(createProductCategoryDto);
+  //这个必须放在前面，否则会先适配下面路由
+  @ApiOperation({
+    summary: '获取产品分类列表分级',
+  })
+  @Get('/list/withChildren')
+  async getProductCategoryChildList(@Request() req) {
+    const childList =
+      await this.productCategoryService.getProductCategoryChildList();
+
+    return childList;
   }
 
-  @Get()
-  @ApiOperation({ summary: '获取所有产品分类' })
-  @ApiResponse({ status: 200, description: '分类列表', type: [ProductCategoryEntity] })
-  findAll() {
-    return this.productCategoryService.findAll();
+  @ApiOperation({
+    summary: '获取产品分类列表',
+  })
+  @Get('/list/:id')
+  async getProductCategoryList(
+    @Param('id') id: number,
+    @Query() page: BasePageDto,
+  ) {
+    const childList = await this.productCategoryService.getCateList(page, id);
+    const result = CommonResult.pageData(
+      childList,
+      page.pageSize,
+      page.pageNum,
+    );
+    return result;
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: '根据ID获取产品分类' })
-  @ApiResponse({ status: 200, description: '分类详情', type: ProductCategoryEntity })
-  @ApiResponse({ status: 404, description: '分类未找到' })
-  findOne(@Param('id') id: string) {
-    return this.productCategoryService.findOne(+id);
-  }
-
-  @Put(':id')
-  @ApiOperation({ summary: '更新产品分类' })
-  @ApiResponse({ status: 200, description: '分类更新成功。', type: ProductCategoryEntity })
-  @ApiResponse({ status: 404, description: '分类未找到' })
-  update(@Param('id') id: string, @Body() updateProductCategoryDto: CreateProductCategoryDto) {
-    return this.productCategoryService.update(+id, updateProductCategoryDto);
-  }
-
-  @Delete(':id')
-  @ApiOperation({ summary: '删除产品分类' })
-  @ApiResponse({ status: 200, description: '分类删除成功。' })
-  @ApiResponse({ status: 404, description: '分类未找到' })
-  remove(@Param('id') id: string) {
-    return this.productCategoryService.remove(+id);
+  @ApiOperation({
+    summary: '获取产品分类列表',
+  })
+  @Post('create')
+  async createProductCategory(
+    @Param('id') id: number,
+    @Query() page: BasePageDto,
+  ) {
+    const childList = await this.productCategoryService.getCateList(page, id);
+    const result = CommonResult.pageData(
+      childList,
+      page.pageSize,
+      page.pageNum,
+    );
+    return result;
   }
 }

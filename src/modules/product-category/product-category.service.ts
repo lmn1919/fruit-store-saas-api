@@ -1,42 +1,60 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateProductCategoryDto } from './dto/create-product-category.dto';
-import { ProductCategoryEntity } from './product-category.entity';
+import { BasePageDto } from '~/common/BasePageDto';
+import { ProductCategory } from './entities/product-category.entity';
 
 @Injectable()
 export class ProductCategoryService {
   constructor(
-    @InjectRepository(ProductCategoryEntity)
-    private categoryRepository: Repository<ProductCategoryEntity>,
+    @InjectRepository(ProductCategory)
+    private pcRepository: Repository<ProductCategory>,
   ) {}
 
-  create(createProductCategoryDto: CreateProductCategoryDto): Promise<ProductCategoryEntity> {
-    const category = this.categoryRepository.create(createProductCategoryDto);
-    if (createProductCategoryDto.parentId) {
-      category.parent = { id: createProductCategoryDto.parentId } as ProductCategoryEntity;
+  /**
+   * 查询 用户列表
+   * @param dto
+   * @returns
+   */
+  async getCateList(dto: BasePageDto, level: number) {
+    const { keyword, pageSize, pageNum } = dto;
+    const queryFilter: any = {};
+    if (keyword) {
+      // 模糊查询 username
+      queryFilter.level = level;
     }
-    return this.categoryRepository.save(category);
+    const res = await this.pcRepository.findAndCount({
+      // 查询条件
+      where: queryFilter,
+      // offset，分页的偏移量
+      skip: (pageNum - 1) * pageSize,
+      // 每页条数
+      take: pageSize,
+      // 是否缓存
+      cache: true,
+    });
+    return res;
   }
 
-  findAll(): Promise<ProductCategoryEntity[]> {
-    return this.categoryRepository.find({ relations: ['parent', 'children'] });
+  /**
+   * 查询 产品分类children list
+   * @returns
+   */
+  async getProductCategoryChildList() {
+    const menuList = await this.pcRepository.find();
+    const result = this.dealTreeData(0, menuList);
+    return result;
   }
-
-  findOne(id: any): Promise<ProductCategoryEntity> {
-    return this.categoryRepository.findOne(id);
-  }
-
-  async update(id: any, updateProductCategoryDto: CreateProductCategoryDto): Promise<ProductCategoryEntity> {
-    const category = await this.categoryRepository.findOne(id);
-    Object.assign(category, updateProductCategoryDto);
-    if (updateProductCategoryDto.parentId) {
-      category.parent = { id: updateProductCategoryDto.parentId } as ProductCategoryEntity;
-    }
-    return this.categoryRepository.save(category);
-  }
-
-  async remove(id: number): Promise<void> {
-    await this.categoryRepository.delete(id);
+  dealTreeData(parent_id: number, list: any) {
+    const arr = list?.filter((c: any) => c.parentId == parent_id) || [];
+    arr.forEach((item: any) => {
+      const children: any = this.dealTreeData(item.id, list);
+      if (children?.length) {
+        item.children = children;
+      } else {
+        item.children = [];
+      }
+    });
+    return arr;
   }
 }

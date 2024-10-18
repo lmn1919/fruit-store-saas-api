@@ -36,7 +36,12 @@ import { ShopModule } from './modules/shop/shop.module'
 
 import { AppointmentOrderModule } from './modules/order/order.module'
 
+import { BrandModule } from './modules/brand/brand.module'
+import { ProductAttributeCategoryModule } from './modules/product-attribute-category/product-attribute-category.module'
+import { ProductAttributeModule } from './modules/product-attribute/product-attribute.module'
 import { ProductCategoryModule } from './modules/product-category/product-category.module'
+import { ProductModule } from './modules/product/product.module'
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -87,6 +92,14 @@ import { ProductCategoryModule } from './modules/product-category/product-catego
     // ShopProjectModule,
     AppointmentOrderModule,
     ProductCategoryModule,
+
+    ProductModule,
+
+    BrandModule,
+    ProductAttributeCategoryModule,
+
+    ProductAttributeModule
+
     // biz
 
     // end biz

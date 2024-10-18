@@ -4,7 +4,8 @@ import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
 import Redis from 'ioredis'
 import { isEmpty } from 'lodash'
 import { EntityManager, Like, Repository } from 'typeorm'
-
+import { BusinessException } from '~/common/exceptions/biz.exception'
+import { ErrorEnum } from '~/constants/error-code.constant'
 
 import { paginate } from '~/helper/paginate'
 import { Pagination } from '~/helper/paginate/pagination'
@@ -27,72 +28,72 @@ export class UserPointsService {
     @InjectEntityManager() private entityManager: EntityManager,
     private readonly paramConfigService: ParamConfigService,
     private readonly qqService: QQService,
-  ) {}
+  ) { }
 
-    /**
-   * 查询积分列表
-   */
-    async list({
+  /**
+ * 查询积分列表
+ */
+  async list({
+    page,
+    pageSize,
+    userName,
+    userPhone,
+
+  }: UserPointsQueryDto): Promise<Pagination<UserPointsEntity>> {
+    const queryBuilder = await this.userPointsRepository
+      .createQueryBuilder('userPoints')
+      .where({
+        ...(userName ? { name: Like(`%${userName}%`) } : null),
+        ...(userPhone ? { value: Like(`%${userPhone}%`) } : null),
+
+      })
+
+    return paginate<UserPointsEntity>(queryBuilder, {
       page,
       pageSize,
-      userName,
-      userPhone,
-      
-    }: UserPointsQueryDto): Promise<Pagination<UserPointsEntity>> {
-      const queryBuilder = await this.userPointsRepository
-        .createQueryBuilder('userPoints')
-        .where({
-          ...(userName ? { name: Like(`%${userName}%`) } : null),
-          ...(userPhone ? { value: Like(`%${userPhone}%`) } : null),
-         
-        })
-  
-      return paginate<UserPointsEntity>(queryBuilder, {
-        page,
-        pageSize,
-      })
-    }
-  
-    /**
-     * 获取用户的积分
-     */
-    async info(id: number) {
-      const info = await this.userPointsRepository
-        .createQueryBuilder('userPoints')
-        .where({
-          id,
-        })
-        .getOne()
-
-      return { ...info }
-    }
-
-
-/**
-   * 注册
-   */
-async creact({ userId,  }: UserPointsDto): Promise<void> {
-  const exists = await this.userPointsRepository.findOneBy({
-    userId,
-  })
-  if (!isEmpty(exists))
-    throw new BusinessException(ErrorEnum.SYSTEM_USER_EXISTS)
-
-  await this.entityManager.transaction(async (manager) => {
-
-
-    const u = manager.create(UserEntity, {
-      username,
-      password,
-      status: 1,
-      psalt: salt,
     })
+  }
 
-    const user = await manager.save(u)
+  /**
+   * 获取用户的积分
+   */
+  async info(id: number) {
+    const info = await this.userPointsRepository
+      .createQueryBuilder('userPoints')
+      .where({
+        id,
+      })
+      .getOne()
 
-    return user
-  })
-}
+    return { ...info }
+  }
+
+
+  /**
+     * 注册
+     */
+  async creact({ userId, userName, userPhone, points }: UserPointsDto): Promise<void> {
+    const exists = await this.userPointsRepository.findOneBy({
+      userId,
+    })
+    if (!isEmpty(exists))
+      throw new BusinessException(ErrorEnum.SYSTEM_USER_EXISTS)
+
+    await this.entityManager.transaction(async (manager) => {
+
+
+      const u = manager.create(UserPointsEntity, {
+        userId,
+        userName,
+        userPhone, 
+        points
+      })
+
+      const user = await manager.save(u)
+
+      return user
+    })
+  }
 
 
 

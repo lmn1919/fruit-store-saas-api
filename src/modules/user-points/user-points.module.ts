@@ -6,11 +6,11 @@ import { ParamConfigModule } from '../system/param-config/param-config.module'
 
 import { RoleModule } from '../system/role/role.module'
 
-import { UserController } from './user-points.controller'
+import { UserPointsController } from './user-points.controller'
 import { UserPointsEntity } from './user-points.entity'
-import { UserService } from './user-points.service'
+import { UserPointsService } from './user-points.service'
 
-const providers = [UserService]
+const providers = [UserPointsService]
 
 @Module({
   imports: [
@@ -19,8 +19,8 @@ const providers = [UserService]
     MenuModule,
     ParamConfigModule,
   ],
-  controllers: [UserController],
+  controllers: [UserPointsController],
   providers: [...providers],
   exports: [TypeOrmModule, ...providers],
 })
-export class UserModule {}
+export class UserPointsModule {}

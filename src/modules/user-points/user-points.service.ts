@@ -2,10 +2,7 @@ import { InjectRedis } from '@liaoliaots/nestjs-redis'
 import { Injectable } from '@nestjs/common'
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
 import Redis from 'ioredis'
-import { isEmpty } from 'lodash'
 import { EntityManager, Like, Repository } from 'typeorm'
-import { BusinessException } from '~/common/exceptions/biz.exception'
-import { ErrorEnum } from '~/constants/error-code.constant'
 
 import { paginate } from '~/helper/paginate'
 import { Pagination } from '~/helper/paginate/pagination'
@@ -57,11 +54,11 @@ export class UserPointsService {
   /**
    * 获取用户的积分
    */
-  async info(id: number) {
+  async info(userId: number) {
     const info = await this.userPointsRepository
       .createQueryBuilder('userPoints')
       .where({
-        id,
+        userId,
       })
       .getOne()
 
@@ -70,32 +67,37 @@ export class UserPointsService {
 
 
   /**
-     * 注册
+     * 创建用户积分
      */
-  async creact({ userId, userName, userPhone, points }: UserPointsDto): Promise<void> {
-    const exists = await this.userPointsRepository.findOneBy({
-      userId,
-    })
-    if (!isEmpty(exists))
-      throw new BusinessException(ErrorEnum.SYSTEM_USER_EXISTS)
-
-    await this.entityManager.transaction(async (manager) => {
-
-
-      const u = manager.create(UserPointsEntity, {
-        userId,
-        userName,
-        userPhone, 
-        points
+  async creact({ userId, userName, userPhone, points }: UserPointsDto): Promise<string> {
+ 
+       await this.userPointsRepository.save({
+        userId, userName, userPhone, points
       })
-
-      const user = await manager.save(u)
-
-      return user
-    })
+  
+      return '创建成功'
+    
+  
+   
   }
 
 
+  /**
+     * 更新积分
+     */
+  async update({ userId, userName, userPhone, points }: UserPointsDto): Promise<string> {
+  
+      await this.userPointsRepository
+      .createQueryBuilder()
+      .update(UserPointsEntity)
+      .set({ points: () => `points + ${points}` }) // points 字段增加指定的值
+      .where('userId = :userId', { userId })
+      .execute();
+
+      return '修改成功'
+    }
+   
+  
 
 
 }

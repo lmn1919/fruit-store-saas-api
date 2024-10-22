@@ -29,6 +29,9 @@ export class UserPointsDto extends OperatorDto {
 export class UserPointsUpdateDto extends PartialType(UserPointsDto) {}
 
 export class UserPointsQueryDto extends IntersectionType(PagerDto<UserPointsDto>, PartialType(UserPointsDto)) {
+  @ApiProperty({ description: '用户id' })
+  userId: number
+
   @ApiProperty({ description: '用户名', required: false })
   @IsString()
   userName?: string

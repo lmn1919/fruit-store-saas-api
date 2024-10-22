@@ -85,7 +85,7 @@ export class UserPointsService {
   /**
      * 更新积分
      */
-  async update({ userId, userName, userPhone, points }: UserPointsDto): Promise<string> {
+  async update({ userId, points }: UserPointsDto): Promise<string> {
   
       await this.userPointsRepository
       .createQueryBuilder()
@@ -97,7 +97,5 @@ export class UserPointsService {
       return '修改成功'
     }
    
-  
-
 
 }

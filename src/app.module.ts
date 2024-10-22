@@ -41,6 +41,7 @@ import { ProductAttributeCategoryModule } from './modules/product-attribute-cate
 import { ProductAttributeModule } from './modules/product-attribute/product-attribute.module'
 import { ProductCategoryModule } from './modules/product-category/product-category.module'
 import { ProductModule } from './modules/product/product.module'
+import { UserPointsRecordsModule } from './modules/user-points-records/user-points-records.module'
 import { UserPointsModule } from './modules/user-points/user-points.module'
 @Module({
   imports: [
@@ -92,15 +93,12 @@ import { UserPointsModule } from './modules/user-points/user-points.module'
     // ShopProjectModule,
     AppointmentOrderModule,
     ProductCategoryModule,
-
     ProductModule,
-
     BrandModule,
     ProductAttributeCategoryModule,
-
     ProductAttributeModule,
-
-    UserPointsModule
+    UserPointsModule,
+    UserPointsRecordsModule
 
     // biz
 

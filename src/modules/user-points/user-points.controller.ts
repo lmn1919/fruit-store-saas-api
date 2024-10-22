@@ -1,16 +1,13 @@
-import { Controller, Get, Query } from '@nestjs/common'
+import { Controller, Get, Post, Put, Query } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 
 import { ApiResult } from '~/common/decorators/api-result.decorator'
 import { ApiSecurityAuth } from '~/common/decorators/swagger.decorator'
-import { MenuService } from '~/modules/system/menu/menu.service'
-
-import { IdParam } from '~/common/decorators/id-param.decorator'
 import { Perm, definePermission } from '../auth/decorators/permission.decorator'
-import { UserPointsQueryDto } from './dto/user-points.dto'
+import { UserPointsDto, UserPointsQueryDto } from './dto/user-points.dto'
 import { UserPointsEntity } from './user-points.entity'
 import { UserPointsService } from './user-points.service'
-export const permissions = definePermission('system:user', {
+export const permissions = definePermission('system:user-points', {
   LIST: 'list',
   CREATE: 'create',
   READ: 'read',
@@ -21,18 +18,18 @@ export const permissions = definePermission('system:user', {
   PASSWORD_RESET: 'pass:reset',
 } as const)
 
-@ApiTags('System - 用户模块积分')
+@ApiTags('System - 用户积分模块')
 @ApiSecurityAuth()
 @Controller('userPoints')
 export class UserPointsController {
   constructor(
     private userPointsService: UserPointsService,
-    private menuService: MenuService,
+
   ) {}
  
 
   @Get()
-  @ApiOperation({ summary: '获取积分列表列表' })
+  @ApiOperation({ summary: '获取积分列表' })
   @ApiResult({ type: [UserPointsEntity], isPage: true })
   @Perm(permissions.LIST)
   async list(@Query() dto: UserPointsQueryDto) {
@@ -42,7 +39,24 @@ export class UserPointsController {
   @Get(':userId')
   @ApiOperation({ summary: '获取用户积分' })
   @Perm(permissions.READ)
-  async info(@IdParam() userId: number) {
+  async info(@Query() userId: number) {
     return this.userPointsService.info(userId)
   }
+
+
+  @Post()
+  @ApiOperation({ summary: '创建用户积分账户' })
+  @Perm(permissions.CREATE)
+  async creact(@Query() dto: UserPointsDto) {
+    return this.userPointsService.creact(dto)
+  }
+
+  @Put(':userId')
+  @ApiOperation({ summary: '更新积分' })
+  @Perm(permissions.UPDATE)
+  async update(@Query() dto: UserPointsDto): Promise<void> {
+    await this.userPointsService.update(dto)
+ 
+  }
+
 }

@@ -32,17 +32,12 @@ import { SocketModule } from './socket/socket.module'
 import { TenantModule } from './modules/tenant/tenant.module'
 import { TodoModule } from './modules/todo/todo.module'
 
-import { ShopModule } from './modules/shop/shop.module'
 
-import { AppointmentOrderModule } from './modules/order/order.module'
 
-import { BrandModule } from './modules/brand/brand.module'
-import { ProductAttributeCategoryModule } from './modules/product-attribute-category/product-attribute-category.module'
-import { ProductAttributeModule } from './modules/product-attribute/product-attribute.module'
-import { ProductCategoryModule } from './modules/product-category/product-category.module'
-import { ProductModule } from './modules/product/product.module'
-import { UserPointsRecordsModule } from './modules/user-points-records/user-points-records.module'
-import { UserPointsModule } from './modules/user-points/user-points.module'
+import { AppointmentOrderModule } from './modules/mall/order/order.module'
+
+import { MallModule } from './modules/mall/mall.module'
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -89,22 +84,16 @@ import { UserPointsModule } from './modules/user-points/user-points.module'
     NetdiskModule,
     TenantModule,
     TodoModule,
-    ShopModule,
     // ShopProjectModule,
     AppointmentOrderModule,
-    ProductCategoryModule,
-    ProductModule,
-    BrandModule,
-    ProductAttributeCategoryModule,
-    ProductAttributeModule,
-    UserPointsModule,
-    UserPointsRecordsModule
+    MallModule
+
 
     // biz
 
     // end biz
 
-  
+
   ],
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionsFilter },
@@ -120,4 +109,4 @@ import { UserPointsModule } from './modules/user-points/user-points.module'
 
   ],
 })
-export class AppModule {}
+export class AppModule { }

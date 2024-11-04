@@ -18,7 +18,7 @@ import { ProductService } from './product.service';
 @ApiTags('产品')
 @Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly productService: ProductService) { }
 
   @ApiOperation({
     summary: '创建商品',
@@ -73,7 +73,7 @@ export class ProductController {
     const result: any = { ...sql };
     result.cateParentId = result.productCategory.parentId;
 
-    return result;
+    return result
   }
 
   @ApiOperation({

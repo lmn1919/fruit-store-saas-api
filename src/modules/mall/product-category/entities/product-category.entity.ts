@@ -2,17 +2,12 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
-  OneToOne,
-  PrimaryGeneratedColumn
+  OneToOne
 } from 'typeorm';
+import { CompleteEntity } from '~/common/entity/common.entity';
 import { Product } from '~/modules/mall/product/entities/product.entity';
-
 @Entity('pms_product_category')
-export class ProductCategory {
-  @ApiProperty({ description: '自增 id' })
-  @PrimaryGeneratedColumn({ type: 'bigint' })
-  id: number;
-
+export class ProductCategory extends CompleteEntity {
   @ApiProperty({ description: '上机分类的编号：0表示一级分类' })
   @Column({ type: 'bigint', name: 'parent_id' })
   parentId: number;

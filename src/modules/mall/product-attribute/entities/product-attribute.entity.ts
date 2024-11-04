@@ -3,16 +3,13 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
+  ManyToOne
 } from 'typeorm';
+import { CompleteEntity } from '~/common/entity/common.entity';
 import { ProductAttributeCategory } from '~/modules/mall/product-attribute-category/entities/product-attribute-category.entity';
-
 @Entity('pms_product_attribute')
-export class ProductAttribute {
-  @ApiProperty({ description: '自增 id' })
-  @PrimaryGeneratedColumn({ type: 'bigint' })
-  id: number;
+export class ProductAttribute extends CompleteEntity {
+
 
   @ApiProperty({ description: '' })
   @Column({ type: 'bigint', name: 'product_attribute_category_id' })

@@ -4,8 +4,6 @@ import { isNil } from 'lodash';
 import { Like, Repository } from 'typeorm';
 import { paginate } from '~/helper/paginate';
 import { Pagination } from '~/helper/paginate/pagination';
-import { CouponEntity } from '~/modules/mall/coupon/entities/coupon.entity';
-import { UserEntity } from '~/modules/user/user.entity';
 import { CouponHistoryCreact, CouponHistorySearchDto, CouponHistoryUpdateDto } from './dto/coupon-history.dto';
 import { CouponHistory } from './entities/coupon-history.entity';
 @Injectable()
@@ -14,11 +12,11 @@ export class CouponHistoryService {
     @InjectRepository(CouponHistory)
     private cphRepository: Repository<CouponHistory>,
 
-    @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>,
+    // @InjectRepository(UserEntity)
+    // private userRepository: Repository<UserEntity>,
 
-    @InjectRepository(CouponEntity)
-    private readonly couponRepository: Repository<CouponEntity>,
+    // @InjectRepository(CouponEntity)
+    // private readonly couponRepository: Repository<CouponEntity>,
   ) { }
 
 
@@ -61,8 +59,8 @@ export class CouponHistoryService {
  * 注册
  */
   async create({ memberId, couponId }: CouponHistoryCreact): Promise<void> {
-    let userData = await this.userRepository.findOneBy({ id: memberId })
-    let couponData = await this.couponRepository.findOneBy({ id: couponId })
+    // let userData = await this.userRepository.findOneBy({ id: memberId })
+    // let couponData = await this.couponRepository.findOneBy({ id: couponId })
     await this.cphRepository.save({ memberId, couponId })
 
   }

@@ -2,7 +2,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity } from 'typeorm';
 import { CompleteEntity } from '~/common/entity/common.entity';
-@Entity('shop')
+@Entity('sys-shop')
 export class ShopEntity  extends CompleteEntity{
 
   @Column()

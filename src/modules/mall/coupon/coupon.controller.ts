@@ -16,7 +16,7 @@ export const permissions = definePermission('system:coupon', {
   DELETE: 'delete',
 } as const)
 
-@ApiTags('System - 优惠券模块')
+@ApiTags('pos - 优惠券模块')
 @ApiSecurityAuth()
 @Controller('coupon')
 export class CouponController {

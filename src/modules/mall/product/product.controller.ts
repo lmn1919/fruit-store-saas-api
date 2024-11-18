@@ -15,7 +15,7 @@ import { CommonResult } from '~/common/CommonResult';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductService } from './product.service';
 
-@ApiTags('产品')
+@ApiTags('pos-产品')
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) { }

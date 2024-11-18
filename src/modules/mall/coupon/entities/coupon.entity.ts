@@ -8,7 +8,7 @@ import {
 import { CommonEntity } from '~/common/entity/common.entity';
 import { CouponProductCategoryRelation } from './coupon-product-category-relation.entity';
 import { CouponProductRelation } from './coupon-product-relation.entity';
-@Entity({ name: 'sys_coupon' })
+@Entity({ name: 'pos_coupon' })
 
 
 
@@ -105,7 +105,7 @@ export class CouponEntity extends CommonEntity{
   @Column('int', { name: 'receive_count', nullable: true, comment: '领取数量' })
   receiveCount: number | null;
 
-  @Column('int', { name: 'receive_count', nullable: true, comment: '价格，0为免费c1' })
+  @Column('int', { name: 'price', nullable: true, comment: '价格，0为免费c1' })
   price: number | null;
 
   @Column('datetime', {

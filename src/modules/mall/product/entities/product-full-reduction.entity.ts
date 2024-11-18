@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CompleteEntity } from '~/common/entity/common.entity';
 import { Product } from './product.entity';
-@Entity('pms_product_full_reduction')
+@Entity('pos_product_full_reduction')
 export class ProductFullReduction  extends CompleteEntity{
 
 

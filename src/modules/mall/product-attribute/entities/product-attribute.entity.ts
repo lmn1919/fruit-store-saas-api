@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CompleteEntity } from '~/common/entity/common.entity';
 import { ProductAttributeCategory } from '~/modules/mall/product-attribute-category/entities/product-attribute-category.entity';
-@Entity('pms_product_attribute')
+@Entity('pos_product_attribute')
 export class ProductAttribute extends CompleteEntity {
 
 

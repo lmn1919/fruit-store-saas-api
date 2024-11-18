@@ -6,7 +6,7 @@ import {
 } from 'typeorm';
 import { CommonEntity } from '~/common/entity/common.entity';
 import { CouponEntity } from './coupon.entity';
-@Entity('sys_coupon_product_category_relation')
+@Entity('pos_coupon_product_category_relation')
 export class CouponProductCategoryRelation extends CommonEntity{
 
 

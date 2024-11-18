@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity } from 'typeorm';
 import { CompleteEntity } from '~/common/entity/common.entity';
-@Entity('pms_brand')
+@Entity('pos_brand')
 export class Brand extends CompleteEntity {
   @ApiProperty({ description: '名称' })
   @Column({ length: 64 })

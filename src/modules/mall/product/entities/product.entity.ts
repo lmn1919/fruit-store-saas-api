@@ -15,7 +15,7 @@ import { ProductFullReduction } from './product-full-reduction.entity';
 import { ProductLadder } from './product-ladder.entity';
 import { SkuStock } from './sku-stock.entity';
 import { SubjectProductRelation } from './subject-product-relation.entity';
-@Entity('pms_product')
+@Entity('pos_product')
 export class Product  extends CompleteEntity{
  
   @ApiProperty({ description: '品牌 id' })

@@ -18,7 +18,7 @@ export const permissions = definePermission('system:user-points', {
   PASSWORD_RESET: 'pass:reset',
 } as const)
 
-@ApiTags('System - 用户积分模块')
+@ApiTags('pos - 用户积分模块')
 @ApiSecurityAuth()
 @Controller('userPoints')
 export class UserPointsController {

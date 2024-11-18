@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CompleteEntity } from '~/common/entity/common.entity';
 import { Product } from './product.entity';
-@Entity('pms_member_price')
+@Entity('pos_member_price')
 export class MemberPrice extends CompleteEntity{
   @ApiProperty({ description: '' })
   @Column({ type: 'bigint', name: 'product_id' })

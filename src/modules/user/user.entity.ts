@@ -7,16 +7,17 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
-  Relation,
+  OneToOne,
+  Relation
 } from 'typeorm'
 
 import { CommonEntity } from '~/common/entity/common.entity'
 
 import { AccessTokenEntity } from '~/modules/auth/entities/access-token.entity'
 
+import { MemberEntity } from '~/modules/mall/member/member.entity'
 import { DeptEntity } from '~/modules/system/dept/dept.entity'
 import { RoleEntity } from '~/modules/system/role/role.entity'
-
 @Entity({ name: 'sys_user' })
 export class UserEntity extends CommonEntity {
   @Column({ unique: true })
@@ -69,4 +70,11 @@ export class UserEntity extends CommonEntity {
     cascade: true,
   })
   accessTokens: Relation<AccessTokenEntity[]>
+
+  @OneToOne(
+    (type) => MemberEntity,
+    (merber) => merber.id,
+  )
+  @JoinColumn({ name: 'merber_id' })
+  memberCategory: MemberEntity;
 }

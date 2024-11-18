@@ -11,7 +11,7 @@ import { BasePageDto } from '~/common/BasePageDto';
 import { CommonResult } from '~/common/CommonResult';
 import { ProductCategoryService } from './product-category.service';
 
-@ApiTags('产品分类')
+@ApiTags('pos-产品分类')
 @Controller('productCategory')
 export class ProductCategoryController {
   constructor(

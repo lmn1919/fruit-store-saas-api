@@ -8,7 +8,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CommonResult } from '~/common/CommonResult';
 import { ProductAttributeService } from './product-attribute.service';
 
-@ApiTags('商品属性管理')
+@ApiTags('pos-商品属性管理')
 @Controller('productAttribute')
 export class ProductAttributeController {
   constructor(

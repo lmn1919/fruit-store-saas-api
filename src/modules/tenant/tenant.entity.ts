@@ -1,8 +1,8 @@
 // src/tenant/tenant.entity.ts
-import { Entity, Column } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { CompleteEntity } from '~/common/entity/common.entity'
-@Entity('tenant')
+import { Column, Entity } from 'typeorm';
+import { CompleteEntity } from '~/common/entity/common.entity';
+@Entity('sys_tenant')
 export class TenantEntity extends CompleteEntity{
 
   @Column()

@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { CompleteEntity } from '~/common/entity/common.entity';
 import { ProductAttribute } from '~/modules/mall/product-attribute/entities/product-attribute.entity';
-@Entity('pms_product_attribute_category')
+@Entity('pos_product_attribute_category')
 export class ProductAttributeCategory extends CompleteEntity {
-  @ApiProperty({ description: '自增 id' })
-  @PrimaryGeneratedColumn({ type: 'bigint' })
-  id: number;
+  // @ApiProperty({ description: '自增 id' })
+  // @PrimaryGeneratedColumn({ type: 'bigint' })
+  // id: number;
 
   @ApiProperty({ description: '' })
   @Column({ type: 'varchar', length: '64' })

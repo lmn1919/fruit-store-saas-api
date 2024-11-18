@@ -12,7 +12,7 @@ import { BasePageDto } from '~/common/BasePageDto';
 import { CommonResult } from '~/common/CommonResult';
 import { ProductAttributeCategoryService } from './product-attribute-category.service';
 
-@ApiTags('商品属性分类管理')
+@ApiTags('pos-商品属性分类管理')
 @Controller('productAttribute/category/')
 export class ProductAttributeCategoryController {
   constructor(

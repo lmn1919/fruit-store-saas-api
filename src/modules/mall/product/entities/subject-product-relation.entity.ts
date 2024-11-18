@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CompleteEntity } from '~/common/entity/common.entity';
 import { Product } from './product.entity';
-@Entity('cms_subject_product_relation')
+@Entity('pos_subject_product_relation')
 export class SubjectProductRelation  extends CompleteEntity{
 
   @ApiProperty({ description: '' })

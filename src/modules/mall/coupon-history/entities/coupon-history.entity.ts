@@ -2,7 +2,7 @@ import { Column, Entity, Index } from 'typeorm';
 import { CommonEntity } from '~/common/entity/common.entity';
 @Index('idx_coupon_id', ['couponId'], {})
 @Index('idx_member_id', ['memberId'], {})
-@Entity('sys_coupon_history')
+@Entity('pos_coupon_history')
 export class CouponHistory extends CommonEntity{
   @Column('bigint', { name: 'coupon_id', nullable: true })
   couponId: number | null;

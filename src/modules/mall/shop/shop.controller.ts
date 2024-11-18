@@ -1,12 +1,12 @@
 // src/shop/shop.controller.ts
-import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
-import { ShopService } from './shop.service';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateShopDto } from './create-shop.dto';
-import { UpdateShopDto } from './update-shop.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ShopEntity } from './shop.entity';
+import { ShopService } from './shop.service';
+import { UpdateShopDto } from './update-shop.dto';
 
-@ApiTags('shop-店铺管理')
+@ApiTags('pos-店铺管理')
 @Controller('shop')
 export class ShopController {
   constructor(private readonly shopService: ShopService) {}

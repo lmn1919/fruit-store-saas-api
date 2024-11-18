@@ -1,12 +1,12 @@
 // src/tenant/tenant.controller.ts
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
-import { TenantService } from './tenant.service';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateTenantDto } from './create-tenant.dto';
-import { UpdateTenantDto } from './update-tenant.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { TenantEntity } from './tenant.entity';
+import { TenantService } from './tenant.service';
+import { UpdateTenantDto } from './update-tenant.dto';
 
-@ApiTags('tenant-租户管理')
+@ApiTags('System-租户管理')
 @Controller('tenant')
 export class TenantController {
   constructor(private readonly tenantService: TenantService) {}

@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CompleteEntity } from '~/common/entity/common.entity';
 import { Product } from './product.entity';
-@Entity('pms_sku_stock')
+@Entity('pos_sku_stock')
 export class SkuStock  extends CompleteEntity{
  
 

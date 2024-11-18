@@ -4,6 +4,8 @@ import { RouterModule } from '@nestjs/core'
 import { BrandModule } from './brand/brand.module'
 import { CouponHistoryModule } from './coupon-history/coupon-history.module'
 import { CouponModule } from './coupon/coupon.module'
+import { MaterialModule } from './material/material.module'
+import { MemberModule } from './member/member.module'
 import { ProductAttributeCategoryModule } from './product-attribute-category/product-attribute-category.module'
 import { ProductAttributeModule } from './product-attribute/product-attribute.module'
 import { ProductCategoryModule } from './product-category/product-category.module'
@@ -21,8 +23,9 @@ const modules = [
   UserPointsModule,
   UserPointsRecordsModule,
   CouponModule,
-  CouponHistoryModule
-
+  CouponHistoryModule,
+  MaterialModule,
+  MemberModule
 ]
 
 @Module({

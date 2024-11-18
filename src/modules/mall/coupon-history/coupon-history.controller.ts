@@ -19,7 +19,7 @@ export const permissions = definePermission('system:user', {
   PASSWORD_UPDATE: 'password:update',
   PASSWORD_RESET: 'pass:reset',
 } as const)
-@ApiTags('优惠券领取记录管理')
+@ApiTags('pos-优惠券领取记录管理')
 @Controller('couponHistory')
 export class CouponHistoryController {
   constructor(private readonly couponHistoryService: CouponHistoryService) {}

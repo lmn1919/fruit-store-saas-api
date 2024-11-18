@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CompleteEntity } from '~/common/entity/common.entity';
 import { Product } from './product.entity';
-@Entity('cms_prefrence_area_product_relation')
+@Entity('pos_prefrence_area_product_relation')
 export class PrefrenceAreaProductRelation extends CompleteEntity{
   @ApiProperty({ description: '' })
   @Column({ type: 'bigint', name: 'product_id' })

@@ -8,7 +8,7 @@ import {
 
 import { CommonEntity } from '~/common/entity/common.entity'
 
-@Entity({ name: 'sys_user_points_records' })
+@Entity({ name: 'pos_user_points_records' })
 export class UserPointRecordsEntity extends CommonEntity {
   @Column({ nullable: false, name: 'user_id' })
   @ApiProperty({ description: '用户id' })

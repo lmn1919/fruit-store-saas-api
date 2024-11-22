@@ -82,6 +82,15 @@ export class OmsOrder {
   integrationAmount: string | null;
 
   @Column('decimal', {
+    name: 'integration_num',
+    nullable: true,
+    comment: '积分使用数量',
+    precision: 10,
+    scale: 2,
+  })
+  integrationNum: string | null;
+
+  @Column('decimal', {
     name: 'coupon_amount',
     nullable: true,
     comment: '优惠券抵扣金额',
@@ -89,6 +98,8 @@ export class OmsOrder {
     scale: 2,
   })
   couponAmount: string | null;
+
+  
 
   @Column('decimal', {
     name: 'discount_amount',
@@ -127,9 +138,6 @@ export class OmsOrder {
     comment: '订单类型：0->正常订单；1->秒杀订单',
   })
   orderType: number | null;
-
-
-
 
   @Column('int', {
     name: 'integration',

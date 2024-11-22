@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CommonResult } from '@src/common/CommonResult';
-import { EntityManager, Transaction, TransactionManager } from 'typeorm';
+import { EntityManager, TransactionManager } from 'typeorm';
 import { OrderSearchDto } from './dto/order-search.dto';
 import { ReceiverInfo } from './dto/receiverInfo.dto';
 import { OmsOrderService } from './oms-order.service';
@@ -42,7 +42,7 @@ export class OmsOrderController {
 
   @ApiOperation({ summary: '备注订单' })
   @Post('/update/note')
-  @Transaction()
+  // @Transaction()
   updateNote(
     @Query('id') id: string,
     @Query('note') note: string,
@@ -61,7 +61,7 @@ export class OmsOrderController {
 
   @ApiOperation({ summary: '修改收货人信息' })
   @Post('/update/receiverInfo')
-  @Transaction()
+  // @Transaction()
   updateRei(
     @Body() info: ReceiverInfo,
     @Request() req,

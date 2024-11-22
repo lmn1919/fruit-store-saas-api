@@ -13,7 +13,7 @@ export class TenantEntity extends CompleteEntity{
   @ApiProperty({ description: '租户类型' })
   type: string;
 
-  @Column()
+  @Column({ name: 'status',comment: '状态,1正常，2停用，3待续费' })
   @ApiProperty({ description: '状态',default: 1 })
   status: string;
 

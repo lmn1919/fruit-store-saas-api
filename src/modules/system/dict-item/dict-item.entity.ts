@@ -26,6 +26,9 @@ export class DictItemEntity extends CompleteEntity {
   @ApiProperty({ description: ' 状态' })
   status: number
 
+  @Column({ nullable: true, comment: '字典项排序' })
+  order: number
+
   @Column({ type: 'varchar', nullable: true })
   @ApiProperty({ description: '备注' })
   remark: string

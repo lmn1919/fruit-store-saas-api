@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BasePageDto } from '@src/common/BasePageDto';
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 export class ReceiverInfo {
   @ApiProperty({ description: '订单id' })
   @IsNotEmpty()

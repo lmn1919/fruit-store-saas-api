@@ -10,8 +10,7 @@ import {
   Request
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CommonResult } from '@src/common/CommonResult';
-import { EntityManager, TransactionManager } from 'typeorm';
+
 import { OrderSearchDto } from './dto/order-search.dto';
 import { ReceiverInfo } from './dto/receiverInfo.dto';
 import { OmsOrderService } from './oms-order.service';
@@ -25,13 +24,7 @@ export class OmsOrderController {
   @Get('list')
   async findAll(@Query() search: OrderSearchDto) {
     const pageList = await this.omsOrderService.getPageList(search);
-    const result = CommonResult.pageData(
-      pageList,
-      search.pageSize,
-      search.pageNum,
-    );
 
-    return result;
   }
 
   @ApiOperation({ summary: '查询订单详情' })
@@ -48,15 +41,14 @@ export class OmsOrderController {
     @Query('note') note: string,
     @Query('status') status: number,
     @Request() req,
-    @TransactionManager() manager: EntityManager,
   ) {
-    return this.omsOrderService.updateNote(
-      id,
-      note,
-      status,
-      manager,
-      req.user.nickName,
-    );
+    // return this.omsOrderService.updateNote(
+    //   id,
+    //   note,
+    //   status,
+    //   manager,
+    //   req.user.nickName,
+    // );
   }
 
   @ApiOperation({ summary: '修改收货人信息' })
@@ -65,9 +57,9 @@ export class OmsOrderController {
   updateRei(
     @Body() info: ReceiverInfo,
     @Request() req,
-    @TransactionManager() manager: EntityManager,
+
   ) {
-    return this.omsOrderService.receiverInfo(info, manager, req.user.nickName);
+    // return this.omsOrderService.receiverInfo(info, manager, req.user.nickName);
   }
 
   @ApiOperation({ summary: '批量发货' })

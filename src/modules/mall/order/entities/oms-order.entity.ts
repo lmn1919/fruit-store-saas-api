@@ -81,14 +81,6 @@ export class OmsOrder {
   })
   integrationAmount: string | null;
 
-  @Column('decimal', {
-    name: 'integration_num',
-    nullable: true,
-    comment: '积分使用数量',
-    precision: 10,
-    scale: 2,
-  })
-  integrationNum: string | null;
 
   @Column('decimal', {
     name: 'coupon_amount',
@@ -171,7 +163,7 @@ export class OmsOrder {
   @Column('int', {
     name: 'use_integration',
     nullable: true,
-    comment: '下单时使用的积分',
+    comment: '下单时使用的积分数量',
   })
   useIntegration: number | null;
 

@@ -1,17 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { OrderSearchDto } from './dto/order-search.dto';
+import { InjectRepository } from '@nestjs/typeorm';
 import {
   Brackets,
   EntityManager,
-  Like,
   Repository,
-  getRepository,
+  getRepository
 } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { OmsOrder } from './entities/oms-order.entity';
-import { OrderOperateHistory } from './entities/order-operate-history.entity';
+import { OrderSearchDto } from './dto/order-search.dto';
 import { ReceiverInfo } from './dto/receiverInfo.dto';
-import { OrderItem } from './entities/order-item.entity';
+import { OmsOrder } from './entities/oms-order.entity';
 
 @Injectable()
 export class OmsOrderService {
@@ -149,18 +146,18 @@ export class OmsOrderService {
     manager: EntityManager,
     operateman: string,
   ) {
-    const model = await manager.findOne(OmsOrder, { id: id });
-    model.note = note;
-    model.modifyTime = new Date();
-    await manager.save(model);
-    const history = new OrderOperateHistory();
-    history.orderId = id;
-    history.createTime = new Date();
-    history.orderStatus = status;
-    history.operateMan = operateman;
-    history.note = `修改备注信息：${note}`;
-    const res = await manager.insert(OrderOperateHistory, history);
-    return res;
+    // const model:any = await manager.findOne(OmsOrder, { id: id });
+    // model.note = note;
+    // model.modifyTime = new Date();
+    // await manager.save(model);
+    // const history = new OrderOperateHistory();
+    // history.orderId = id;
+    // history.createTime = new Date();
+    // history.orderStatus = status;
+    // history.operateMan = operateman;
+    // history.note = `修改备注信息：${note}`;
+    // const res = await manager.insert(OrderOperateHistory, history);
+    // return res;
   }
 
   async receiverInfo(
@@ -168,25 +165,25 @@ export class OmsOrderService {
     manager: EntityManager,
     operateman: string,
   ) {
-    const model = await this.orderRepository.findOne({ id: info.orderId });
-    model.receiverName = info.receiverName;
-    model.receiverPhone = info.receiverPhone;
-    model.receiverPostCode = info.receiverPostCode;
-    model.receiverDetailAddress = info.receiverDetailAddress;
-    model.receiverProvince = info.receiverProvince;
-    model.receiverCity = info.receiverCity;
-    model.receiverRegion = info.receiverRegion;
-    model.modifyTime = new Date();
+    // const model:any = await this.orderRepository.findOne({ id: info.orderId });
+    // model.receiverName = info.receiverName;
+    // model.receiverPhone = info.receiverPhone;
+    // model.receiverPostCode = info.receiverPostCode;
+    // model.receiverDetailAddress = info.receiverDetailAddress;
+    // model.receiverProvince = info.receiverProvince;
+    // model.receiverCity = info.receiverCity;
+    // model.receiverRegion = info.receiverRegion;
+    // model.modifyTime = new Date();
 
-    await manager.save(model);
-    const history = new OrderOperateHistory();
-    history.orderId = info.orderId;
-    history.createTime = new Date();
-    history.orderStatus = info.status;
-    history.operateMan = operateman;
-    history.note = `修改收货人信息`;
-    const res = await manager.insert(OrderOperateHistory, history);
-    return res;
+    // await manager.save(model);
+    // const history = new OrderOperateHistory();
+    // history.orderId = info.orderId;
+    // history.createTime = new Date();
+    // history.orderStatus = info.status;
+    // history.operateMan = operateman;
+    // history.note = `修改收货人信息`;
+    // const res = await manager.insert(OrderOperateHistory, history);
+    // return res;
   }
 
   /**
@@ -196,29 +193,29 @@ export class OmsOrderService {
    * @returns
    */
   async batchUpdateDelivery(orders: [any]) {
-    const ids = orders.map((value) => value.orderId);
-    const existComment = await this.orderRepository.findByIds(ids, {
-      where: { status: 1 },
-    });
-    const updatedComment = [];
+    // const ids = orders.map((value) => value.orderId);
+    // const existComment = await this.orderRepository.findByIds(ids, {
+    //   where: { status: 1 },
+    // });
+    // const updatedComment = [];
 
-    existComment.map((el) => {
-      const newDelivery = orders.filter((value) => value.orderId == el.id);
-      if (newDelivery.length == 1) {
-        const delivery = newDelivery[0];
+    // existComment.map((el) => {
+    //   const newDelivery = orders.filter((value) => value.orderId == el.id);
+    //   if (newDelivery.length == 1) {
+    //     const delivery = newDelivery[0];
 
-        el.deliverySn = delivery.deliverySn;
-        el.deliveryCompany = delivery.deliveryCompany;
-        el.status = 2;
-        el.deliveryTime = new Date();
+    //     el.deliverySn = delivery.deliverySn;
+    //     el.deliveryCompany = delivery.deliveryCompany;
+    //     el.status = 2;
+    //     el.deliveryTime = new Date();
 
-        updatedComment.push({
-          ...el,
-        });
-      }
-    });
-    const result = await this.orderRepository.save(updatedComment);
-    return result;
+    //     updatedComment.push({
+    //       ...el,
+    //     });
+    //   }
+    // });
+    // const result = await this.orderRepository.save(updatedComment);
+    // return result;
   }
 
   /**

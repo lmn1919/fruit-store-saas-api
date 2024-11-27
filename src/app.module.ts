@@ -34,7 +34,7 @@ import { TodoModule } from './modules/todo/todo.module'
 
 
 
-import { AppointmentOrderModule } from './modules/mall/order/order.module'
+import { OmsOrderModule } from './modules/mall/order/oms-order.module'
 
 import { MallModule } from './modules/mall/mall.module'
 
@@ -85,7 +85,7 @@ import { MallModule } from './modules/mall/mall.module'
     TenantModule,
     TodoModule,
     // ShopProjectModule,
-    AppointmentOrderModule,
+    OmsOrderModule,
     MallModule
 
 

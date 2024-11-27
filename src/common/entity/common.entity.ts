@@ -34,7 +34,7 @@ export abstract class CommonEntity extends BaseEntity {
   deletedAt: Date
 
 
-  @Column({ name: 'tenant_id', comment: '租户id', nullable: true })
+  @Column({ name: 'tenant_id', comment: '租户id', nullable: true,default: 1 })
   tenantId: number
 }
 

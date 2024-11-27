@@ -69,7 +69,7 @@ export class MemberEntity extends CommonEntity {
   remark: string
 
   //标签
-  @Column({ nullable: false, name: 'remark' })
+  @Column({ nullable: false, name: 'tag' })
   @ApiProperty({ description: '标签' })
   tag: string
 

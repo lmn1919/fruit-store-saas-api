@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BasePageDto } from '@src/common/BasePageDto';
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsOptional } from 'class-validator';
+import { BasePageDto } from '~/common//BasePageDto';
 export class OrderSearchDto extends BasePageDto {
-  @IsNotEmpty()
-  pageNum: number;
+  // @IsNotEmpty()
+  // pageNum: number;
 
-  @IsNotEmpty()
-  pageSize: number;
+  // @IsNotEmpty()
+  // pageSize: number;
 
   @ApiProperty({ description: '订单编号' })
   @IsOptional()

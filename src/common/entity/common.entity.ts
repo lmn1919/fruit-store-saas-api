@@ -21,7 +21,7 @@ import {
 
 export abstract class CommonEntity extends BaseEntity {
   @ApiProperty({ description: '自增 id' })
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+  @PrimaryGeneratedColumn()
   id: number;
 
   @CreateDateColumn({ name: 'created_at' })

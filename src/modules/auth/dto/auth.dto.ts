@@ -14,15 +14,15 @@ export class LoginDto {
   @MinLength(6)
   password: string
 
-  @ApiProperty({ description: '验证码标识' })
-  @IsString()
-  captchaId: string
+  // @ApiProperty({ description: '验证码标识' })
+  // @IsString()
+  // captchaId: string
 
-  @ApiProperty({ description: '用户输入的验证码' })
-  @IsString()
-  @MinLength(4)
-  @MaxLength(4)
-  verifyCode: string
+  // @ApiProperty({ description: '用户输入的验证码' })
+  // @IsString()
+  // @MinLength(4)
+  // @MaxLength(4)
+  // verifyCode: string
 }
 
 export class RegisterDto {

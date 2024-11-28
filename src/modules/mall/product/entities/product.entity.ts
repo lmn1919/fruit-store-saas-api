@@ -169,6 +169,10 @@ export class Product  extends CompleteEntity{
   @Column({ length: 255, name: 'product_category_name' })
   productCategoryName: string;
 
+  @ApiProperty({ description: '秤码' })
+  @Column({ length: 255, name: 'scale_num' })
+  scaleNum: string;
+
   @OneToOne(
     (type) => ProductCategory,
     (productCategory) => productCategory.product,

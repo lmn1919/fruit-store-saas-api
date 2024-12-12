@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MemberPrice } from './entities/member-price.entity';
-import { PrefrenceAreaProductRelation } from './entities/prefrence-area-product-relation.entity';
+
 import { ProductAttributeValue } from './entities/product-attribute-value.entity';
 import { ProductFullReduction } from './entities/product-full-reduction.entity';
 import { ProductLadder } from './entities/product-ladder.entity';
@@ -20,7 +20,6 @@ import { ProductService } from './product.service';
       ProductAttributeValue,
       ProductFullReduction,
       SkuStock,
-      PrefrenceAreaProductRelation,
       SubjectProductRelation,
     ]),
   ],

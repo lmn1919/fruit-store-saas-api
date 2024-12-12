@@ -30,8 +30,7 @@ export class ProductController {
     // @TransactionManager() maneger: EntityManager,
   ) {
     try {
-      let maneger
-      const sql = await this.productService.createProduct(updateDto, maneger);
+      const sql = await this.productService.createProduct(updateDto);
       return sql;
     } catch (error) {
       throw new HttpException(error, HttpStatus.BAD_REQUEST);
@@ -139,6 +138,7 @@ export class ProductController {
     );
     return result;
   }
+  
 
   @ApiOperation({
     summary: '更新商品',

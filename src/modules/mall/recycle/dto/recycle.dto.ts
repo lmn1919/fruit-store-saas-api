@@ -1,6 +1,7 @@
 import { ApiProperty, IntersectionType, PartialType } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
+  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString
@@ -8,108 +9,92 @@ import {
 import { OperatorDto } from '~/common/dto/operator.dto';
 import { PagerDto } from '~/common/dto/pager.dto';
 
-
-export class MemberDto extends OperatorDto {
-  @ApiProperty({ description: '用户id' })
+export class RecyclingDto extends OperatorDto {
+  @ApiProperty({ description: '用户ID' })
+  @IsNotEmpty()
   @IsNumber()
   @Type(() => Number)
-  userId: number
+  userId: number;
 
-  @ApiProperty({ description: '会员名称', example: '' })
-  @IsOptional()
+  @ApiProperty({ description: '用户名称' })
+  @IsNotEmpty()
   @IsString()
-  memberName: string
+  userName: string;
 
-  // memberPhone
-
-  @ApiProperty({ description: '会员手机号' })
-  @IsOptional()
+  @ApiProperty({ description: '用户手机号' })
+  @IsNotEmpty()
   @IsString()
-  memberPhone: string
+  userPhone: string;
 
-  @ApiProperty({ description: '会员卡号' })
-  @IsOptional()
-  @IsString()
-  memberCardNo: string
+  @ApiProperty({ description: '回收类型: 1-纸类 2-金属 3-塑料 4-其他' })
+  @IsNotEmpty()
+  @IsNumber()
+  @Type(() => Number)
+  recyclingType: number;
 
+  @ApiProperty({ description: '重量(kg)' })
+  @IsNotEmpty()
+  @IsNumber()
+  @Type(() => Number)
+  weight: number;
 
-
-  @ApiProperty({ description: '积分' })
+  @ApiProperty({ description: '单价(元/kg)' })
   @IsOptional()
   @IsNumber()
   @Type(() => Number)
-  point: number
+  unitPrice: number;
 
-  // 会员等级
-  @ApiProperty({ description: '会员等级' })
+  @ApiProperty({ description: '积分单价(积分/kg)' })
   @IsOptional()
   @IsNumber()
   @Type(() => Number)
-  memberLevel: number
+  unitPoints: number;
 
-  //sex
-  @ApiProperty({ description: '性别，1=>男，2=>女' })
+  @ApiProperty({ description: '总金额' })
   @IsOptional()
   @IsNumber()
   @Type(() => Number)
-  sex: number
+  totalAmount: number;
 
-  //ageRange
-  @ApiProperty({ description: '年龄段，1.青年，2中年，3老年' })
+  @ApiProperty({ description: '赠送积分' })
   @IsOptional()
   @IsNumber()
   @Type(() => Number)
-  ageRange: number
+  points: number;
 
-  // consumeLevel
-  @ApiProperty({ description: '消费能力等级，1高，2中，3低' })
+  @ApiProperty({ description: '状态: 0-待回收 1-已回收 2-已结算' })
   @IsOptional()
   @IsNumber()
   @Type(() => Number)
-  consumeLevel: number
-
-  // birthday
-  @ApiProperty({ description: '生日' })
-  @IsOptional()
-  @IsString()
-  birthday: string
-
+  status: number;
 
   @ApiProperty({ description: '备注' })
   @IsOptional()
   @IsString()
-  remark?: string
-
-  @ApiProperty({ description: '是否是永久积分，1=>启用，2=>禁用' })
-  status: number
-
-  //tag
-  @ApiProperty({ description: '标签' })
-  @IsOptional()
-  @IsString()
-  tag: string
+  remark: string;
 }
 
-export class MemberUpdateDto extends PartialType(MemberDto) {}
+export class RecyclingUpdateDto extends PartialType(RecyclingDto) {}
 
-export class MemberQueryDto extends IntersectionType(PagerDto<MemberDto>, PartialType(MemberDto)) {
-  @ApiProperty({ description: '会员名称', example: '' })
+export class RecyclingQueryDto extends IntersectionType(PagerDto<RecyclingDto>, PartialType(RecyclingDto)) {
+  @ApiProperty({ description: '回收单号' })
   @IsOptional()
   @IsString()
-  memberName: string
+  recyclingNo: string;
 
-  @ApiProperty({ description: '会员卡号' })
+  @ApiProperty({ description: '用户名称' })
   @IsOptional()
   @IsString()
-  memberCardNo: string
+  userName: string;
 
-  @ApiProperty({ description: '会员手机号' })
+  @ApiProperty({ description: '用户手机号' })
   @IsOptional()
   @IsString()
-  memberPhone: string
+  userPhone: string;
 
-  @ApiProperty({ description: '状态，1=>启用，2=>禁用' })
-  status: number
-
-
+  @ApiProperty({ description: '状态: 0-待回收 1-已回收 2-已结算' })
+  @IsOptional()
+  @IsNumber()
+  @Type(() => Number)
+  status: number;
 }

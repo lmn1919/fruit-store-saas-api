@@ -6,21 +6,21 @@ import { ParamConfigModule } from '../../system/param-config/param-config.module
 
 import { RoleModule } from '../../system/role/role.module'
 
-import { UserPointsRecordsController } from './pay.controller'
-import { MemberEntity } from './pay.entity'
-import { MaterialService } from './pay.service'
+import { PayController } from './pay.controller'
+import { PayEntity } from './pay.entity'
+import { PayService } from './pay.service'
 
-const providers = [MaterialService]
+const providers = [PayService]
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([MemberEntity]),
+    TypeOrmModule.forFeature([PayEntity]),
     RoleModule,
     MenuModule,
     ParamConfigModule,
   ],
-  controllers: [UserPointsRecordsController],
+  controllers: [PayController],
   providers: [...providers],
   exports: [TypeOrmModule, ...providers],
 })
-export class MemberModule {}
+export class PayModule {}

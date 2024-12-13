@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { CommonEntity } from '~/common/entity/common.entity'
-import { OmsOrder } from '../order/entities/oms-order.entity'
+import { OrderEntity } from '../order/entities/order.entity'
 
 @Entity({ name: 'mall_pay' })
 export class PayEntity extends CommonEntity {
@@ -33,10 +33,10 @@ export class PayEntity extends CommonEntity {
   @Column({ name: 'fail_reason', comment: '支付失败原因', nullable: true })
   failReason: string
 
-  @OneToOne(() => OmsOrder)
+  @OneToOne(() => OrderEntity)
   @JoinColumn({ name: 'order_id' })
   @ApiProperty({ description: '订单信息' })
-  order: OmsOrder
+  order: OrderEntity
 }
 
 

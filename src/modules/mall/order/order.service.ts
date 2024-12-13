@@ -8,15 +8,29 @@ import {
 } from 'typeorm';
 import { OrderSearchDto } from './dto/order-search.dto';
 import { ReceiverInfo } from './dto/receiverInfo.dto';
-import { OmsOrder } from './entities/oms-order.entity';
+import { OrderEntity } from './entities/order.entity';
 
 @Injectable()
 export class OmsOrderService {
   constructor(
-    @InjectRepository(OmsOrder)
-    private orderRepository: Repository<OmsOrder>,
+    @InjectRepository(OrderEntity)
+    private orderRepository: Repository<OrderEntity>,
   ) {}
 
+
+  /**
+   * 创建订单
+   * @param dto 订单信息
+   * @returns 订单ID
+   */
+  async createOrder(dto: OrderEntity): Promise<object> {
+    try {
+      const order = await this.orderRepository.save(dto);
+      return {id: order.id};
+    } catch (error) {
+      throw new Error('创建订单失败');
+    }
+  }
   /**
    * 查询订单列表  分页
    * @param dto
@@ -34,7 +48,7 @@ export class OmsOrderService {
       createTime,
     } = dto;
 
-    const res = getRepository(OmsOrder)
+    const res = getRepository(OrderEntity)
       .createQueryBuilder('user')
       .where('user.deleteStatus = 0')
       .andWhere(
@@ -186,37 +200,7 @@ export class OmsOrderService {
     // return res;
   }
 
-  /**
-   * 批量发货
-   * @param
-   * @param
-   * @returns
-   */
-  async batchUpdateDelivery(orders: [any]) {
-    // const ids = orders.map((value) => value.orderId);
-    // const existComment = await this.orderRepository.findByIds(ids, {
-    //   where: { status: 1 },
-    // });
-    // const updatedComment = [];
-
-    // existComment.map((el) => {
-    //   const newDelivery = orders.filter((value) => value.orderId == el.id);
-    //   if (newDelivery.length == 1) {
-    //     const delivery = newDelivery[0];
-
-    //     el.deliverySn = delivery.deliverySn;
-    //     el.deliveryCompany = delivery.deliveryCompany;
-    //     el.status = 2;
-    //     el.deliveryTime = new Date();
-
-    //     updatedComment.push({
-    //       ...el,
-    //     });
-    //   }
-    // });
-    // const result = await this.orderRepository.save(updatedComment);
-    // return result;
-  }
+  
 
   /**
    * 批量修改删除状态

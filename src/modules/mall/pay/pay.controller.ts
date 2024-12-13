@@ -5,9 +5,9 @@ import { ApiResult } from '~/common/decorators/api-result.decorator'
 import { IdParam } from '~/common/decorators/id-param.decorator'
 import { ApiSecurityAuth } from '~/common/decorators/swagger.decorator'
 import { Perm, definePermission } from '../../auth/decorators/permission.decorator'
-import { MemberDto, MemberQueryDto } from './dto/pay.dto'
-import { MemberEntity } from './pay.entity'
-import { MaterialService } from './pay.service'
+import { PayDto, PayQueryDto } from './dto/pay.dto'
+import { PayEntity } from './pay.entity'
+import { PayService } from './pay.service'
 export const permissions = definePermission('system:user-points-records', {
   LIST: 'list',
   CREATE: 'create',
@@ -19,45 +19,45 @@ export const permissions = definePermission('system:user-points-records', {
   PASSWORD_RESET: 'pass:reset',
 } as const)
 
-@ApiTags('pos - 会员管理')
+@ApiTags('pos - 支付单管理')
 @ApiSecurityAuth()
-@Controller('merber')
-export class UserPointsRecordsController {
+@Controller('pay')
+export class PayController {
   constructor(
-    private mterialService: MaterialService,
+    private payService: PayService,
   ) {}
  
 
   @Get()
-  @ApiOperation({ summary: '获取会员列表' })
-  @ApiResult({ type: [MemberEntity], isPage: true })
+  @ApiOperation({ summary: '获取支付单列表' })
+  @ApiResult({ type: [PayEntity], isPage: true })
   @Perm(permissions.LIST)
-  async list(@Query() dto: MemberQueryDto) {
-    return this.mterialService.list(dto)
+  async list(@Query() dto: PayQueryDto) {
+      return this.payService.list(dto)
   }
 
 
   @Get(':id')
-  @ApiOperation({ summary: '获取会员详情' })
+  @ApiOperation({ summary: '获取支付单详情' })
   @Perm(permissions.READ)
   async info(@IdParam() id: number) {
-    return this.mterialService.info(id)
+    return this.payService.info(id)
   }
 
 
   @Post()
-  @ApiOperation({ summary: '新增会员' })
+  @ApiOperation({ summary: '新增支付单' })
   @Perm(permissions.CREATE)
-  async creact(@Query() dto: MemberDto) {
-    return this.mterialService.creact(dto)
+  async creact(@Query() dto: PayDto) {
+    return this.payService.creact(dto)
   }
 
 
   @Put(':id')
-  @ApiOperation({ summary: '更新会员' })
+  @ApiOperation({ summary: '更新支付单' })
   @Perm(permissions.CREATE)
-  async update(@IdParam() id: number, @Query() dto: MemberDto) {
-    return this.mterialService.update(id,dto)
+  async update(@IdParam() id: number, @Query() dto: PayDto) {
+    return this.payService.update(id,dto)
   }
 
 }

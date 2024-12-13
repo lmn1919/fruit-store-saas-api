@@ -67,7 +67,7 @@ export class ProductController {
     summary: '根据商品id获取商品编辑信息',
   })
   @Get('/updateInfo/:id')
-  async getProductDetail(@Param('id') id: string) {
+  async getProductDetail(@Param('id') id: number) {
     const sql = await this.productService.getProductById(id);
     const result: any = { ...sql };
     result.cateParentId = result.productCategory.parentId;
@@ -138,7 +138,7 @@ export class ProductController {
     );
     return result;
   }
-  
+
 
   @ApiOperation({
     summary: '更新商品',
@@ -151,11 +151,10 @@ export class ProductController {
     // @TransactionManager() maneger: EntityManager,
   ) {
     try {
-      let maneger
       const sql = await this.productService.updateProductById(
         id,
         updateDto,
-        maneger,
+  
       );
       return sql;
     } catch (error) {

@@ -10,7 +10,7 @@ import {
   IsString,
 } from 'class-validator';
 import { MemberPrice } from '../entities/member-price.entity';
-import { PrefrenceAreaProductRelation } from '../entities/prefrence-area-product-relation.entity';
+// import { PrefrenceAreaProductRelation } from '../entities/prefrence-area-product-relation.entity';
 import { ProductAttributeValue } from '../entities/product-attribute-value.entity';
 import { ProductFullReduction } from '../entities/product-full-reduction.entity';
 import { ProductLadder } from '../entities/product-ladder.entity';
@@ -331,12 +331,12 @@ export class CreateProductDto {
   @IsArray()
   productAttributeValueList: ProductAttributeValue[];
 
-  @ApiProperty({
-    type: Array,
-    description: '优选专区和商品的关系',
-  })
-  @IsArray()
-  prefrenceAreaProductRelationList: PrefrenceAreaProductRelation[];
+  // @ApiProperty({
+  //   type: Array,
+  //   description: '优选专区和商品的关系',
+  // })
+  // @IsArray()
+  // prefrenceAreaProductRelationList: PrefrenceAreaProductRelation[];
 
   @ApiProperty({
     type: Array,

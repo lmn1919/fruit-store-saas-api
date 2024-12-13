@@ -9,7 +9,7 @@ import {
 import { CompleteEntity } from '~/common/entity/common.entity';
 import { ProductCategory } from '~/modules/mall/product-category/entities/product-category.entity';
 import { MemberPrice } from './member-price.entity';
-import { PrefrenceAreaProductRelation } from './prefrence-area-product-relation.entity';
+// import { PrefrenceAreaProductRelation } from './prefrence-area-product-relation.entity';
 import { ProductAttributeValue } from './product-attribute-value.entity';
 import { ProductFullReduction } from './product-full-reduction.entity';
 import { ProductLadder } from './product-ladder.entity';
@@ -202,11 +202,11 @@ export class Product extends CompleteEntity {
   )
   productAttributeValueList: ProductAttributeValue[];
 
-  @OneToMany(
-    (type) => PrefrenceAreaProductRelation,
-    (prefrenceAreaProductRelation) => prefrenceAreaProductRelation.product,
-  )
-  prefrenceAreaProductRelationList: PrefrenceAreaProductRelation[];
+  // @OneToMany(
+  //   (type) => PrefrenceAreaProductRelation,
+  //   (prefrenceAreaProductRelation) => prefrenceAreaProductRelation.product,
+  // )
+  // prefrenceAreaProductRelationList: PrefrenceAreaProductRelation[];
 
   @OneToMany(
     (type) => SubjectProductRelation,

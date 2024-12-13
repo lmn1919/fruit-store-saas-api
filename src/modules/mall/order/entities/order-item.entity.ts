@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { OmsOrder } from './oms-order.entity';
+import { OrderEntity } from './order.entity';
 
 @Entity('oms_order_item', { schema: 'mallshop' })
 export class OrderItem {
@@ -139,7 +139,7 @@ export class OrderItem {
   })
   productAttr: string | null;
 
-  @ManyToOne((type) => OmsOrder, (order) => order.orderItemList)
+  @ManyToOne((type) => OrderEntity, (order) => order.orderItemList)
   @JoinColumn({ name: 'order_id' })
-  order: OmsOrder;
+  order: OrderEntity;
 }

@@ -2,8 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  HttpException,
-  HttpStatus,
   Param,
   Post,
   Query,
@@ -12,9 +10,8 @@ import {
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { OrderSearchDto } from './dto/order-search.dto';
-import { ReceiverInfo } from './dto/receiverInfo.dto';
-import { OmsOrderService } from './oms-order.service';
-
+import { OrderEntity } from './entities/order.entity';
+import { OmsOrderService } from './order.service';
 @ApiTags('订单管理')
 @Controller('order')
 export class OmsOrderController {
@@ -51,30 +48,16 @@ export class OmsOrderController {
     // );
   }
 
-  @ApiOperation({ summary: '修改收货人信息' })
-  @Post('/update/receiverInfo')
-  // @Transaction()
-  updateRei(
-    @Body() info: ReceiverInfo,
-    @Request() req,
-
-  ) {
-    // return this.omsOrderService.receiverInfo(info, manager, req.user.nickName);
-  }
-
-  @ApiOperation({ summary: '批量发货' })
-  @Post('/update/delivery')
-  updateDelivery(@Body() orders: [any], @Request() req) {
-    console.log('批量参数', orders, req);
-    if (!orders.length) {
-      throw new HttpException('订单不能为空', HttpStatus.BAD_REQUEST);
-    }
-    return this.omsOrderService.batchUpdateDelivery(orders);
-  }
 
   @ApiOperation({ summary: '批量删除订单' })
   @Post('/delete')
   updateDelete(@Query('ids') ids: string) {
     return this.omsOrderService.batchUpdateDeleteStatus(ids);
+  }
+
+  @ApiOperation({ summary: '创建订单' })
+  @Post('/create')
+  createOrder(@Body() dto: OrderEntity) {
+    return this.omsOrderService.createOrder(dto);
   }
 }

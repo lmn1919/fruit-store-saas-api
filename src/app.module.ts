@@ -34,7 +34,7 @@ import { TodoModule } from './modules/todo/todo.module'
 
 
 
-import { OmsOrderModule } from './modules/mall/order/oms-order.module'
+import { OmsOrderModule } from './modules/mall/order/order.module'
 
 import { MallModule } from './modules/mall/mall.module'
 

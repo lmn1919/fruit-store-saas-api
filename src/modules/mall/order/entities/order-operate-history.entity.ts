@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { OmsOrder } from './oms-order.entity';
+import { OrderEntity } from './order.entity';
 
 @Entity('oms_order_operate_history', { schema: 'mallshop' })
 export class OrderOperateHistory {
@@ -46,7 +46,7 @@ export class OrderOperateHistory {
   })
   note: string | null;
 
-  @ManyToOne((type) => OmsOrder, (order) => order.historyList)
+  @ManyToOne((type) => OrderEntity, (order) => order.historyList)
   @JoinColumn({ name: 'order_id' })
-  order: OmsOrder;
+  order: OrderEntity;
 }

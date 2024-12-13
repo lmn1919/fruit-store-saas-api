@@ -59,7 +59,7 @@ export class ProductService {
       delete prInfo.memberPriceList;
       delete prInfo.productLadderList;
       delete prInfo.productAttributeValueList;
-      delete prInfo.prefrenceAreaProductRelationList;
+      // delete prInfo.prefrenceAreaProductRelationList;
       delete prInfo.productFullReductionList;
       delete prInfo.subjectProductRelationList;
 

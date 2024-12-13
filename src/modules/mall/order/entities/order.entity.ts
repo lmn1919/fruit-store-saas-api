@@ -1,13 +1,12 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
+import { CommonEntity } from '~/common/entity/common.entity';
+import { PayEntity } from '../../pay/pay.entity';
 import { OrderItem } from './order-item.entity';
 import { OrderOperateHistory } from './order-operate-history.entity';
+@Entity('pos_order', { schema: 'mallshop' })
+export class OrderEntity extends CommonEntity {
 
-@Entity('oms_order', { schema: 'mallshop' })
-export class OmsOrder {
-  @PrimaryGeneratedColumn({ type: 'bigint', name: 'id', comment: '订单id' })
-  id: string;
-
-  @Column('bigint', { name: 'member_id' })
+  @Column('bigint', { name: 'member_id', nullable: true })
   memberId: string;
 
   @Column('bigint', { name: 'coupon_id', nullable: true })
@@ -15,7 +14,7 @@ export class OmsOrder {
 
   @Column('varchar', {
     name: 'order_sn',
-    nullable: true,
+    nullable: false,
     comment: '订单编号',
     length: 64,
   })
@@ -23,7 +22,7 @@ export class OmsOrder {
 
   @Column('datetime', {
     name: 'create_time',
-    nullable: true,
+    nullable: false,
     comment: '提交时间',
   })
   createTime: Date | null;
@@ -38,7 +37,7 @@ export class OmsOrder {
 
   @Column('decimal', {
     name: 'total_amount',
-    nullable: true,
+    nullable: false,
     comment: '订单总金额',
     precision: 10,
     scale: 2,
@@ -47,7 +46,7 @@ export class OmsOrder {
 
   @Column('decimal', {
     name: 'pay_amount',
-    nullable: true,
+    nullable: false,
     comment: '应付金额（实际支付金额）',
     precision: 10,
     scale: 2,
@@ -104,14 +103,14 @@ export class OmsOrder {
 
   @Column('int', {
     name: 'pay_type',
-    nullable: true,
+    nullable: false,
     comment: '支付方式：0->未支付；1->支付宝；2->微信，3->线下现金，4->线下扫码微信,5->线下扫码支付宝',
   })
   payType: number | null;
 
   @Column('int', {
     name: 'source_type',
-    nullable: true,
+    nullable: false,
     comment: '订单来源：1->小程序订单，2->门店线下收银订单',
   })
   sourceType: number | null;
@@ -156,7 +155,7 @@ export class OmsOrder {
   @Column('int', {
     name: 'delete_status',
     comment: '删除状态：0->未删除；1->已删除',
-    default: () => "'0'",
+    default: () => "0",
   })
   deleteStatus: number;
 
@@ -201,4 +200,7 @@ export class OmsOrder {
 
   @OneToMany((type) => OrderOperateHistory, (orderOper) => orderOper.order)
   historyList: OrderOperateHistory[];
+
+  @OneToOne(() => PayEntity, (pay) => pay.order)
+  pay: PayEntity;
 }

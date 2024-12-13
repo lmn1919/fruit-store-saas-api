@@ -6,21 +6,22 @@ import { ParamConfigModule } from '../../system/param-config/param-config.module
 
 import { RoleModule } from '../../system/role/role.module'
 
-import { UserPointsRecordsController } from './recycle.controller'
-import { MemberEntity } from './recycle.entity'
-import { MaterialService } from './recycle.service'
+import { RecyclingTypeEntity } from './recycle-type.entity'
+import { RecyclingController } from './recycle.controller'
+import { RecyclingEntity } from './recycle.entity'
+import { RecyclingService } from './recycle.service'
 
-const providers = [MaterialService]
+const providers = [RecyclingService]
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([MemberEntity]),
+    TypeOrmModule.forFeature([RecyclingEntity, RecyclingTypeEntity]),
     RoleModule,
     MenuModule,
     ParamConfigModule,
   ],
-  controllers: [UserPointsRecordsController],
+  controllers: [RecyclingController],
   providers: [...providers],
   exports: [TypeOrmModule, ...providers],
 })
-export class MemberModule {}
+export class RecyclingModule {}

@@ -6,10 +6,12 @@ import { CouponHistoryModule } from './coupon-history/coupon-history.module'
 import { CouponModule } from './coupon/coupon.module'
 import { MaterialModule } from './material/material.module'
 import { MemberModule } from './member/member.module'
+import { PayModule } from './pay/pay.module'
 import { ProductAttributeCategoryModule } from './product-attribute-category/product-attribute-category.module'
 import { ProductAttributeModule } from './product-attribute/product-attribute.module'
 import { ProductCategoryModule } from './product-category/product-category.module'
 import { ProductModule } from './product/product.module'
+import { RecyclingModule } from './recycle/recycle.module'
 import { ShopModule } from './shop/shop.module'
 import { UserPointsRecordsModule } from './user-points-records/user-points-records.module'
 import { UserPointsModule } from './user-points/user-points.module'
@@ -25,7 +27,9 @@ const modules = [
   CouponModule,
   CouponHistoryModule,
   MaterialModule,
-  MemberModule
+  MemberModule,
+  PayModule,
+  RecyclingModule
 ]
 
 @Module({

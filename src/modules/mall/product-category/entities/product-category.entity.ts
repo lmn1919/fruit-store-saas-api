@@ -41,15 +41,15 @@ export class ProductCategory extends CompleteEntity {
   sort: number;
 
   @ApiProperty({ description: '图标' })
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   icon: string;
 
   @ApiProperty({ description: '' })
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   keywords: string;
 
   @ApiProperty({ description: '描述' })
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   description: string;
 
   @OneToOne((type) => Product, (product) => product.productCategory)

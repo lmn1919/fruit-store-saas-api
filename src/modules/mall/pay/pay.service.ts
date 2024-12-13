@@ -7,52 +7,49 @@ import { Like, Repository } from 'typeorm'
 import { paginate } from '~/helper/paginate'
 import { Pagination } from '~/helper/paginate/pagination'
 
-
-import { MemberDto, MemberQueryDto } from './dto/pay.dto'
-import { MemberEntity } from './pay.entity'
+import { PayDto, PayQueryDto } from './dto/pay.dto'
+import { PayEntity } from './pay.entity'
 @Injectable()
-export class MaterialService {
+export class PayService {
   constructor(
     @InjectRedis()
     private readonly redis: Redis,
 
 
-    @InjectRepository(MemberEntity)
-    private readonly memberRepository: Repository<MemberEntity>,
+    @InjectRepository(PayEntity)
+    private readonly PayMemberRepository: Repository<PayEntity>,
 
   ) { }
 
   /**
- * 查询积分记录列表
+ * 查询支付记录列表
  */
   async list({
     page,
     pageSize,
-    memberName,
-    status,
-    memberCardNo,
-    memberPhone
-  }: MemberQueryDto): Promise<Pagination<MemberEntity>> {
-    const queryBuilder = await this.memberRepository
-      .createQueryBuilder('merber')
+    orderId,
+    payStatus,
+    payType
+  }: PayQueryDto): Promise<Pagination<PayEntity>> {
+    const queryBuilder = await this.PayMemberRepository
+      .createQueryBuilder('pay')
       .where({
-        ...(memberName ? { memberName: Like(`%${memberName}%`) } : null),
-        ...(memberCardNo ? { memberCardNo: Like(`%${memberCardNo}%`) } : null),
-        ...(memberPhone ? { memberPhone: Like(`%${memberPhone}%`) } : null),
-        ...(!isEmpty(status) ? { status } : null),
+        ...(orderId ? { orderId: Like(`%${orderId}%`) } : null),
+        ...(!isEmpty(payStatus) ? { payStatus } : null),
+        ...(!isEmpty(payType) ? { payType } : null),
       })
 
-    return paginate<MemberEntity>(queryBuilder, {
+    return paginate<PayEntity>(queryBuilder, {
       page,
       pageSize,
     })
   }
 
   /**
-   * 获取积分记录详情
+   * 获取支付记录详情
    */
   async info(id: number) {
-    const info = await this.memberRepository
+    const info = await this.PayMemberRepository
       .createQueryBuilder('merber')
       .where({
         id,
@@ -64,22 +61,22 @@ export class MaterialService {
 
 
   /**
-     * 创建积分记录
+     * 创建支付记录
      */
-  async creact(dto: MemberDto): Promise<string> {
+  async creact(dto: PayDto): Promise<string> {
  
-       await this.memberRepository.save(dto)
+       await this.PayMemberRepository.save(dto)
   
       return '创建成功'
   }
 
 
   /**
-     * 更新积分
+     * 更新支付记录
      */
-  async update(id:number,dto:MemberDto): Promise<string> {
+  async update(id:number,dto:PayDto): Promise<string> {
   
-    await this.memberRepository.update(id, dto)
+    await this.PayMemberRepository.update(id, dto)
 
     return '修改成功'
   }

@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 import { CommonEntity } from '~/common/entity/common.entity';
 import { PayEntity } from '../../pay/pay.entity';
-import { OrderItem } from './order-item.entity';
+import { OrderItemEntity } from './order-item.entity';
 import { OrderOperateHistory } from './order-operate-history.entity';
 @Entity('pos_order', { schema: 'mallshop' })
 export class OrderEntity extends CommonEntity {
@@ -195,8 +195,8 @@ export class OrderEntity extends CommonEntity {
   commentTime: Date | null;
 
 
-  @OneToMany((type) => OrderItem, (orderItem) => orderItem.order)
-  orderItemList: OrderItem[];
+  @OneToMany((type) => OrderItemEntity, (orderItem) => orderItem.order)
+  orderItemList: OrderItemEntity[];
 
   @OneToMany((type) => OrderOperateHistory, (orderOper) => orderOper.order)
   historyList: OrderOperateHistory[];

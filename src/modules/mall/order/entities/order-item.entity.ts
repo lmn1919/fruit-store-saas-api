@@ -2,16 +2,13 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
+  ManyToOne
 } from 'typeorm';
+import { CommonEntity } from '~/common/entity/common.entity';
 import { OrderEntity } from './order.entity';
 
-@Entity('oms_order_item', { schema: 'mallshop' })
-export class OrderItem {
-  @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
-  id: string;
-
+@Entity('order_item', { schema: 'mallshop' })
+export class OrderItemEntity extends CommonEntity {
   @Column('bigint', { name: 'order_id', nullable: true, comment: '订单id' })
   orderId: string | null;
 

@@ -2,7 +2,7 @@ import { ApiProperty, IntersectionType, PartialType } from '@nestjs/swagger';
 import { IsArray, IsDate, IsDecimal, IsNotEmpty, IsNumber, IsOptional, IsString, Length, Max, Min } from 'class-validator';
 import { PagerDto } from '~/common/dto/pager.dto';
 import { PayEntity } from '../../pay/pay.entity';
-import { OrderItem } from '../entities/order-item.entity';
+import { OrderItemEntity } from '../entities/order-item.entity';
 import { OrderOperateHistory } from '../entities/order-operate-history.entity';
 export class OrderDto {
   @ApiProperty({ description: '会员ID' })
@@ -149,7 +149,7 @@ export class OrderDto {
   @ApiProperty({ description: '订单商品列表' })
   @IsOptional()
   @IsArray()
-  orderItemList: OrderItem[];
+  orderItemList: OrderItemEntity[];
 
   @ApiProperty({ description: '订单操作历史记录' })
   @IsOptional()

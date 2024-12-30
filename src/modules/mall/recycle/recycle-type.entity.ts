@@ -35,5 +35,6 @@ export class RecyclingTypeEntity extends CommonEntity {
   @Column({ nullable: false, name: 'sort', default: 0 })
   @ApiProperty({ description: '排序' })
   sort: number
+  
 }
 

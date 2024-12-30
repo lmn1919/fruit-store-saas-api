@@ -15,6 +15,7 @@ import { RecyclingModule } from './recycle/recycle.module'
 import { ShopModule } from './shop/shop.module'
 import { UserPointsRecordsModule } from './user-points-records/user-points-records.module'
 import { UserPointsModule } from './user-points/user-points.module'
+import { WaterTicketModule } from './water-ticket/water-ticket.module'
 const modules = [
   ShopModule,
   ProductCategoryModule,
@@ -29,7 +30,8 @@ const modules = [
   MaterialModule,
   MemberModule,
   PayModule,
-  RecyclingModule
+  RecyclingModule,
+  WaterTicketModule
 ]
 
 @Module({

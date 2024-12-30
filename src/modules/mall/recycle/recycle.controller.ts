@@ -102,4 +102,5 @@ export class RecyclingController {
   async infoRecyclingType(@IdParam() id: number) {
     return this.recyclingService.infoRecyclingType(id)
   }
+  
 }

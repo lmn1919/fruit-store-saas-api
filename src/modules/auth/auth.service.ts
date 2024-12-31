@@ -91,6 +91,45 @@ export class AuthService {
   }
 
   /**
+   * 微信小程序登录
+   */
+  async wxAppLogin(code: string, ip: string, ua: string): Promise<object> {
+    // 通过code获取openid和session_key
+    const wxResult:any = await this.userService.code2Session(code)
+    if (!wxResult?.openid) {
+      throw new BusinessException(ErrorEnum.INVALID_WX_CODE)
+    }
+
+    // 查找或创建用户
+    let user = await this.userService.findUserByWxOpenid(wxResult.openid)
+    if (!user) {
+      // 首次登录,创建新用户
+      user = await this.userService.createWxUser(wxResult.openid)
+    }
+
+    const roleIds = await this.roleService.getRoleIdsByUser(user.id)
+    const roles = await this.roleService.getRoleValues(roleIds)
+
+    // 生成token
+    const token = await this.tokenService.generateAccessToken(user.id, roles)
+    
+    // 缓存token
+    await this.redis.set(genAuthTokenKey(user.id), token.accessToken, 'EX', this.securityConfig.jwtExprire)
+
+    // 设置密码版本号
+    await this.redis.set(genAuthPVKey(user.id), 1)
+
+    // 设置菜单权限
+    const permissions = await this.menuService.getPermissions(user.id)
+    await this.setPermissionsCache(user.id, permissions)
+
+    // 记录登录日志
+    await this.loginLogService.create(user.id, ip, ua)
+
+    return {token: token.accessToken, userId: user.id}
+  }
+
+  /**
    * 效验账号密码
    */
   async checkPassword(username: string, password: string) {

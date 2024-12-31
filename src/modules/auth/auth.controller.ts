@@ -6,6 +6,8 @@ import { Ip } from '~/common/decorators/http.decorator'
 
 import { UserService } from '../user/user.service'
 
+import { BusinessException } from '~/common/exceptions/biz.exception'
+import { ErrorEnum } from '~/constants/error-code.constant'
 import { AuthService } from './auth.service'
 import { Public } from './decorators/public.decorator'
 import { LoginDto, RegisterDto } from './dto/auth.dto'
@@ -28,14 +30,35 @@ export class AuthController {
   @ApiOperation({ summary: '登录' })
   @ApiResult({ type: LoginToken })
   async login(@Body() dto: LoginDto, @Ip()ip: string, @Headers('user-agent')ua: string): Promise<object> {
-    // await this.captchaService.checkImgCaptcha(dto.captchaId, dto.verifyCode)
-    const res:any = await this.authService.login(
-      dto.username,
-      dto.password,
-      ip,
-      ua,
-    )
-    return { token:res.token,userId:res.userId }
+    let {username,password,loginType} = dto 
+    if(loginType === 'CAPTCHA'){
+      const res:any = await this.authService.login(
+        dto.username,
+        dto.password,
+        ip,
+        ua,
+      )
+      return { token:res.token,userId:res.userId }
+    }
+    else if(loginType === 'PASSWORD'){
+      const res:any = await this.authService.login(
+        dto.username,
+        dto.password,
+        ip,
+        ua,
+      )
+      return { token:res.token,userId:res.userId }
+    }
+    else if(loginType === 'WX_H5'){
+        // 微信H5登录
+    }
+    else if(loginType === 'WX_APP'){
+        // 微信小程序登录
+        
+    }
+    else{
+      throw new BusinessException(ErrorEnum.INVALID_LOGIN)
+    }
   }
 
   @Post('register')

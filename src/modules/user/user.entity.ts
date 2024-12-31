@@ -40,6 +40,15 @@ export class UserEntity extends CommonEntity {
   openId: string
 
   @Column({ nullable: true })
+  sessionKey: string
+
+  @Column({ nullable: true })
+  unionId: string
+
+  @Column({ nullable: true, type: 'json', comment: '微信用户信息' })
+  wxUserInfo: string
+
+  @Column({ nullable: true })
   qq: string
 
   @Column({ nullable: true })
@@ -47,6 +56,9 @@ export class UserEntity extends CommonEntity {
 
   @Column({ nullable: true })
   phone: string
+
+  @Column({ nullable: true })
+  birthday:  Date
 
   @Column({ nullable: true })
   remark: string

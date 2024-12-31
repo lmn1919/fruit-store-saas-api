@@ -24,6 +24,7 @@ import { DeptEntity } from '../system/dept/dept.entity'
 import { ParamConfigService } from '../system/param-config/param-config.service'
 import { RoleEntity } from '../system/role/role.entity'
 
+import { env } from '~/global/env'
 import { UserStatus } from './constant'
 import { PasswordUpdateDto } from './dto/password.dto'
 import { UserDto, UserQueryDto, UserUpdateDto } from './dto/user.dto'
@@ -378,4 +379,33 @@ export class UserService {
       return user
     })
   }
+
+  /**
+   * 微信小程序登录
+   */
+  async code2Session(code: string): Promise<object> {
+    // 通过code获取openid和session_key
+    // https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
+
+    // 微信小程序登录接口
+    const url = `https://api.weixin.qq.com/sns/jscode2session?appid=${env('WX_APP_ID')}&secret=${env('WX_APP_SECRET')}&js_code=${code}&grant_type=authorization_code`
+    
+    try {
+      const response = await fetch(url)
+      const data:any = await response.json()
+      
+      if (data.errcode) {
+        throw new BusinessException(ErrorEnum.INVALID_WX_CODE)
+      }
+      
+      return {
+        openid: data.openid,
+        session_key: data.session_key
+      }
+    } catch (error) {
+      throw new BusinessException(ErrorEnum.INVALID_WX_CODE) 
+    }
+  }
+
+
 }

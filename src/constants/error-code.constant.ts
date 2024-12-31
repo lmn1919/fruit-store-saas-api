@@ -45,4 +45,9 @@ export enum ErrorEnum {
   OSS_FILE_OR_DIR_EXIST = '1401:当前创建的文件或目录已存在',
   OSS_NO_OPERATION_REQUIRED = '1402:无需操作',
   OSS_EXCEE_MAXIMUM_QUANTITY = '1403:已超出支持的最大处理数量',
+
+  // 微信小程序
+  INVALID_WX_CODE = '40029:code无效',
+  INVALID_WX_45011 = '45011:API 调用太频繁，请稍候再试',
+  INVALID_WX_40226 = '40226:高风险等级用户',
 }
